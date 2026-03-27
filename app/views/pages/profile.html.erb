@@ -1,0 +1,44 @@
+<% content_for :title, "Profile" %>
+
+<div class="px-4 pt-6">
+  <h1 class="text-2xl font-bold text-season-dark mb-4">Profile</h1>
+  
+  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-4">
+    <div class="flex items-center gap-4 mb-6">
+      <div class="w-16 h-16 bg-season-green rounded-full flex items-center justify-center text-white text-xl font-bold">
+        <%= current_user.email[0].upcase %>
+      </div>
+      <div>
+        <p class="font-semibold text-season-dark"><%= current_user.email %></p>
+        <p class="text-sm text-gray-500">Member since <%= current_user.created_at.strftime("%B %Y") %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm border border-gray-100 divide-y divide-gray-100">
+    <%= link_to edit_user_registration_path, class: "flex items-center justify-between p-4 hover:bg-gray-50" do %>
+      <span class="text-season-dark">Account Settings</span>
+      <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    <% end %>
+    
+    <%= link_to "#", class: "flex items-center justify-between p-4 hover:bg-gray-50" do %>
+      <span class="text-season-dark">Cycle Settings</span>
+      <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    <% end %>
+    
+    <%= link_to "#", class: "flex items-center justify-between p-4 hover:bg-gray-50" do %>
+      <span class="text-season-dark">Notifications</span>
+      <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    <% end %>
+  </div>
+
+  <div class="mt-6">
+    <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "w-full bg-red-50 text-red-600 py-3 rounded-xl font-medium hover:bg-red-100" %>
+  </div>
+</div>
