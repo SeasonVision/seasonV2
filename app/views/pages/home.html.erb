@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Season V2</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Season V2">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" href="<%= asset_path 'icon.jpeg' %>" type="image/jpeg">
+    <link rel="apple-touch-icon" href="<%= asset_path 'icon.jpeg' %>">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #ffffff;
+        color: #1a1a2e;
+        text-align: center;
+        padding: 1.5rem;
+        padding-bottom: 80px;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ede1d4;
+        padding: 0 1rem;
+        z-index: 100;
+      }
+      nav .logo {
+        height: 55px;
+        width: auto;
+      }
+      .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        width: 100%;
+        max-width: 600px;
+        margin-top: 60px;
+      }
+      .hero .logo {
+        width: 100%;
+        max-width: 280px;
+        height: auto;
+        margin-bottom: 2rem;
+      }
+      .title {
+        font-size: 1.125rem;
+        font-weight: 500;
+        color: #666;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+      }
+      .countdown {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.75rem;
+        width: 100%;
+        max-width: 360px;
+      }
+      .countdown-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #f8f8f8;
+        border-radius: 12px;
+        padding: 1rem 0.5rem;
+      }
+      .countdown-value {
+        font-size: 1.75rem;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+        color: #1a1a2e;
+        line-height: 1;
+      }
+      .countdown-label {
+        font-size: 0.625rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #999;
+        margin-top: 0.5rem;
+      }
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #50715c;
+        color: #fff;
+        font-size: 0.75rem;
+        letter-spacing: 0.02em;
+      }
+
+      @media (min-width: 640px) {
+        nav {
+          height: 100px;
+        }
+        nav .logo {
+          height: 70px;
+        }
+        .hero {
+          margin-top: 80px;
+        }
+        .hero .logo {
+          max-width: 400px;
+          margin-bottom: 3rem;
+        }
+        .title {
+          font-size: 1.25rem;
+          margin-bottom: 2.5rem;
+        }
+        .countdown {
+          max-width: 480px;
+          gap: 1rem;
+        }
+        .countdown-item {
+          padding: 1.5rem 1rem;
+          border-radius: 16px;
+        }
+        .countdown-value {
+          font-size: 2.5rem;
+        }
+        .countdown-label {
+          font-size: 0.7rem;
+          margin-top: 0.75rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .hero .logo {
+          max-width: 500px;
+        }
+        .title {
+          font-size: 1.5rem;
+        }
+        .countdown {
+          max-width: 600px;
+        }
+        .countdown-value {
+          font-size: 3.5rem;
+        }
+        .countdown-label {
+          font-size: 0.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <%= image_tag "icon.jpeg", class: "logo", alt: "Season Logo" %>
+    </nav>
+
+    <main class="hero">
+      <%= image_tag "Season_Logo.svg", class: "logo", alt: "Season Logo" %>
+      
+      <h1 class="title">Version 2 coming soon</h1>
+      
+      <div class="countdown" id="countdown">
+        <div class="countdown-item">
+          <span class="countdown-value" id="days">00</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-value" id="hours">00</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-value" id="minutes">00</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-value" id="seconds">00</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+    </main>
+
+    <footer>©2026 Shanel Chien CEO Season all rights reserved</footer>
+
+    <script>
+      const targetDate = new Date('2026-04-06T00:00:00').getTime();
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance < 0) {
+          document.getElementById('countdown').innerHTML = '<div class="countdown-value">We are live!</div>';
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    </script>
+  </body>
+</html>
