@@ -1,0 +1,5 @@
+scan:
+  run_all_checks: true
+  ignore:
+    - CheckEOLRuby
+    - CheckEOLRails
