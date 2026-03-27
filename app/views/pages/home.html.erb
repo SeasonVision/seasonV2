@@ -1,79 +1,87 @@
-<% if user_signed_in? %>
-  <% content_for :title, "Today" %>
-  
-  <div class="px-4 pt-6">
-    <div class="flex items-center justify-between mb-6">
-      <div>
-        <h1 class="text-2xl font-bold text-season-dark">Good <%= greeting %></h1>
-        <p class="text-gray-500"><%= Date.today.strftime("%A, %B %d") %></p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Season</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#50715c">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              season: { green: '#50715c', cream: '#ede1d4', dark: '#1a1a2e' },
+              phase: { winter: '#6b7280', spring: '#10b981', summer: '#f59e0b', autumn: '#f97316' }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+    </style>
+  </head>
+  <body class="bg-white text-season-dark antialiased">
+    <nav class="fixed top-0 left-0 right-0 bg-season-cream px-4 py-3 flex items-center justify-between z-50">
+      <%= image_tag "icon.svg", class: "h-10 w-auto", alt: "Season" %>
+      <div class="flex gap-2">
+        <%= link_to "Sign In", new_user_session_path, class: "px-4 py-2 text-sm font-medium text-season-dark hover:bg-white/50 rounded-lg" %>
+        <%= link_to "Sign Up", new_user_registration_path, class: "px-4 py-2 text-sm font-medium bg-season-green text-white rounded-lg hover:bg-green-700" %>
       </div>
-      <div class="w-12 h-12 bg-season-green rounded-full flex items-center justify-center text-white font-bold">
-        <%= current_user.email[0].upcase %>
-      </div>
-    </div>
+    </nav>
 
-    <div class="bg-gradient-to-br from-season-green to-green-700 rounded-2xl p-6 text-white mb-6 shadow-lg">
-      <p class="text-sm opacity-80 mb-1">Your current phase</p>
-      <h2 class="text-3xl font-bold mb-4">Spring</h2>
-      <p class="text-sm opacity-90">High energy & creativity. Great for new projects!</p>
-    </div>
-
-    <div class="grid grid-cols-2 gap-4 mb-6">
-      <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-        <p class="text-xs text-gray-500 mb-1">Cycle Day</p>
-        <p class="text-2xl font-bold text-season-dark">14</p>
-      </div>
-      <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-        <p class="text-xs text-gray-500 mb-1">Next Period</p>
-        <p class="text-2xl font-bold text-season-dark">14 days</p>
-      </div>
-    </div>
-
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-      <h3 class="font-semibold text-season-dark mb-4">Today's Recommendations</h3>
-      <div class="space-y-3">
-        <div class="flex items-start gap-3">
-          <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-            <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-          </div>
-          <div>
-            <p class="font-medium text-season-dark text-sm">High intensity workout</p>
-            <p class="text-xs text-gray-500">Your energy is peaking today</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-3">
-          <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-            <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-            </svg>
-          </div>
-          <div>
-            <p class="font-medium text-season-dark text-sm">Focus on complex tasks</p>
-            <p class="text-xs text-gray-500">Peak cognitive performance</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-<% else %>
-  <% content_for :title, "Season" %>
-
-  <div class="min-h-screen flex flex-col bg-white">
-    <div class="flex-1 flex flex-col items-center justify-center px-6 py-12">
-      <%= image_tag "Season_Logo.svg", class: "w-64 max-w-xs mb-8", alt: "Season Logo" %>
+    <main class="min-h-screen flex flex-col items-center justify-center px-6 pt-20 pb-8">
+      <%= image_tag "Season_Logo.svg", class: "w-72 max-w-xs mb-8", alt: "Season Logo" %>
       
       <h1 class="text-xl text-gray-600 font-medium text-center mb-8">Align your life with your cycle</h1>
-
-      <div class="w-full max-w-xs space-y-3">
-        <%= link_to "Get Started", new_user_registration_path, class: "block w-full bg-season-green text-white text-center py-4 rounded-xl font-semibold hover:bg-green-700 transition-colors" %>
-        
-        <%= link_to "Sign In", new_user_session_path, class: "block w-full bg-season-cream text-season-dark text-center py-4 rounded-xl font-semibold hover:bg-amber-100 transition-colors" %>
+      
+      <div class="grid grid-cols-4 gap-3 w-full max-w-sm">
+        <div class="bg-gray-50 rounded-xl p-3 text-center">
+          <span class="block text-2xl font-bold text-season-dark" id="days">00</span>
+          <span class="text-xs text-gray-500 uppercase tracking-wider">Days</span>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-3 text-center">
+          <span class="block text-2xl font-bold text-season-dark" id="hours">00</span>
+          <span class="text-xs text-gray-500 uppercase tracking-wider">Hours</span>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-3 text-center">
+          <span class="block text-2xl font-bold text-season-dark" id="minutes">00</span>
+          <span class="text-xs text-gray-500 uppercase tracking-wider">Mins</span>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-3 text-center">
+          <span class="block text-2xl font-bold text-season-dark" id="seconds">00</span>
+          <span class="text-xs text-gray-500 uppercase tracking-wider">Secs</span>
+        </div>
       </div>
+    </main>
 
-      <p class="mt-8 text-xs text-gray-400 text-center">©2026 Season. All rights reserved.</p>
-    </div>
-  </div>
-<% end %>
+    <footer class="text-center py-4 text-xs text-gray-400">
+      ©2026 Season. All rights reserved.
+    </footer>
+
+    <script>
+      const targetDate = new Date('2026-04-06T00:00:00').getTime();
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+        if (distance < 0) {
+          document.getElementById('days').parentElement.innerHTML = '<span class="text-xl font-bold">We\'re Live!</span>';
+          return;
+        }
+        document.getElementById('days').textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
+        document.getElementById('hours').textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+      }
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    </script>
+  </body>
+</html>
