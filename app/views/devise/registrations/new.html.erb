@@ -1,29 +1,53 @@
-<h2>Sign up</h2>
+<% content_for :title, "Sign Up" %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
-  </div>
-
-  <div class="field">
-    <p><%= f.label :password %></p>
-    <% if @minimum_password_length %>
-      <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
+<div class="min-h-screen flex flex-col">
+  <nav class="fixed top-0 left-0 right-0 bg-season-cream px-4 py-3 flex items-center justify-between z-50">
+    <%= link_to root_path do %>
+      <%= image_tag "icon.svg", class: "h-10 w-auto", alt: "Season" %>
     <% end %>
-    <p><%= f.password_field :password, autocomplete: "new-password" %></p>
-  </div>
+    <%= link_to "Sign In", new_session_path, class: "px-4 py-2 text-sm font-medium text-season-dark hover:bg-white/50 rounded-lg" %>
+  </nav>
 
-  <div class="field">
-    <p><%= f.label :password_confirmation %></p>
-    <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
-  </div>
+  <div class="flex-1 flex items-center justify-center px-6 pt-20 pb-8">
+    <div class="w-full max-w-sm">
+      <h1 class="text-2xl font-bold text-season-dark text-center mb-6">Create Account</h1>
+      
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-4" }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+        <div>
+          <%= f.label :email, class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email",
+            class: "w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-season-green focus:border-transparent outline-none transition" %>
+        </div>
 
-<%= render "devise/shared/links" %>
+        <div>
+          <%= f.label :password, class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <% if @minimum_password_length %>
+            <p class="text-xs text-gray-500 mb-1"><%= @minimum_password_length %> characters minimum</p>
+          <% end %>
+          <%= f.password_field :password, autocomplete: "new-password",
+            class: "w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-season-green focus:border-transparent outline-none transition" %>
+        </div>
+
+        <div>
+          <%= f.label :password_confirmation, class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password",
+            class: "w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-season-green focus:border-transparent outline-none transition" %>
+        </div>
+
+        <%= f.submit "Sign Up", class: "w-full bg-season-green text-white py-3 rounded-xl font-semibold hover:bg-green-700 transition" %>
+      <% end %>
+
+      <div class="mt-4 pt-4 border-t border-gray-100">
+        <%- if devise_mapping.omniauthable? %>
+          <%- resource_class.omniauth_providers.each do |provider| %>
+            <%= button_to "Sign up with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider),
+              class: "w-full mb-3 flex items-center justify-center gap-2 border border-gray-200 py-3 rounded-xl hover:bg-gray-50 transition",
+              data: { turbo: false } %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
