@@ -1,13 +1,13 @@
 <% content_for :title, "Account Settings" %>
 
 <div class="min-h-screen flex flex-col">
-  <nav class="fixed top-0 left-0 right-0 bg-season-cream px-4 py-3 flex items-center justify-between z-50">
-    <%= link_to :back do %>
+  <div class="fixed top-0 left-0 right-0 bg-season-cream px-4 py-3 flex items-center justify-between z-50">
+    <a href="javascript:history.back()" class="p-1">
       <svg class="w-6 h-6 text-season-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-    <% end %>
+    </a>
     <span class="font-semibold text-season-dark">Account Settings</span>
     <div class="w-6"></div>
-  </nav>
+  </div>
 
   <div class="flex-1 px-6 pt-20 pb-8">
     <div class="w-full max-w-sm mx-auto">

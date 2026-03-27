@@ -1,12 +1,12 @@
 <% content_for :title, "Sign Up" %>
 
 <div class="min-h-screen flex flex-col">
-  <nav class="fixed top-0 left-0 right-0 bg-season-cream px-4 py-3 flex items-center justify-between z-50">
-    <%= link_to root_path do %>
+  <div class="fixed top-0 left-0 right-0 bg-season-cream px-4 py-3 flex items-center justify-between z-50">
+    <a href="/">
       <img src="/icon.svg" class="h-10 w-auto" alt="Season">
-    <% end %>
-    <%= link_to "Sign In", new_session_path, class: "px-4 py-2 text-sm font-medium text-season-dark hover:bg-white/50 rounded-lg" %>
-  </nav>
+    </a>
+    <a href="/users/sign_in" class="px-4 py-2 text-sm font-medium text-season-dark hover:bg-white/50 rounded-lg">Sign In</a>
+  </div>
 
   <div class="flex-1 flex items-center justify-center px-6 pt-20 pb-8">
     <div class="w-full max-w-sm">
@@ -38,16 +38,6 @@
 
         <%= f.submit "Sign Up", class: "w-full bg-season-green text-white py-3 rounded-xl font-semibold hover:bg-green-700 transition" %>
       <% end %>
-
-      <div class="mt-4 pt-4 border-t border-gray-100">
-        <%- if devise_mapping.omniauthable? %>
-          <%- resource_class.omniauth_providers.each do |provider| %>
-            <%= button_to "Sign up with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider),
-              class: "w-full mb-3 flex items-center justify-center gap-2 border border-gray-200 py-3 rounded-xl hover:bg-gray-50 transition",
-              data: { turbo: false } %>
-          <% end %>
-        <% end %>
-      </div>
     </div>
   </div>
 </div>

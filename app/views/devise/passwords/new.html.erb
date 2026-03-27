@@ -1,11 +1,11 @@
 <% content_for :title, "Forgot Password" %>
 
 <div class="min-h-screen flex flex-col">
-  <nav class="fixed top-0 left-0 right-0 bg-season-cream px-4 py-3 flex items-center justify-between z-50">
-    <%= link_to root_path do %>
+  <div class="fixed top-0 left-0 right-0 bg-season-cream px-4 py-3 flex items-center justify-between z-50">
+    <a href="/">
       <img src="/icon.svg" class="h-10 w-auto" alt="Season">
-    <% end %>
-  </nav>
+    </a>
+  </div>
 
   <div class="flex-1 flex items-center justify-center px-6 pt-20 pb-8">
     <div class="w-full max-w-sm">
@@ -25,7 +25,7 @@
       <% end %>
 
       <div class="mt-6 text-center">
-        <%= link_to "Back to Sign In", new_session_path(resource_name), class: "text-sm text-season-green hover:underline" %>
+        <a href="/users/sign_in" class="text-sm text-season-green hover:underline">Back to Sign In</a>
       </div>
     </div>
   </div>
